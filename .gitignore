@@ -1,0 +1,7 @@
+# Private source material used to generate the public site
+/课题组成员/
+/assets/pi_en.docx
+
+# Local Python artifacts
+__pycache__/
+*.py[cod]
