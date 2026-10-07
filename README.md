@@ -32,13 +32,13 @@ http://localhost:8000
 若使用用户主页形式，GitHub 仓库名必须为：
 
 ```text
-<GitHub用户名>.github.io
+qianlabtop.github.io
 ```
 
 发布网址为：
 
 ```text
-https://<GitHub用户名>.github.io/
+https://qianlabtop.github.io/
 ```
 
 仓库的 `Settings → Pages → Build and deployment → Source` 需选择 `GitHub Actions`。推送到 `main` 分支后，`.github/workflows/deploy-pages.yml` 会发布网页成品。
@@ -62,6 +62,6 @@ https://<GitHub用户名>.github.io/
 python scripts/update_members.py
 ```
 
-该命令会更新 `members.html`，并复制本次 Excel 中引用的照片到 `assets/members/`；不会删除原始照片。执行后需提交更新的 `members.html` 与 `assets/members/`。
+该命令会更新 `members.html`，并将本次 Excel 中引用的照片生成到 `assets/members/`；原始照片保留在 `课题组成员/`。安装 Pillow（`python -m pip install Pillow`）后，照片会自动缩小到最大 900 像素并生成 WebP；未安装时复制原格式。执行后需提交更新的 `members.html` 与 `assets/members/`。脚本会清理网页不再引用的生成照片。
 
 `课题组成员/` 和 `assets/pi_en.docx` 属于本地源材料，已通过 `.gitignore` 排除，不会进入公开仓库。GitHub Actions 只打包网页、样式、脚本和网页实际使用的图片。
