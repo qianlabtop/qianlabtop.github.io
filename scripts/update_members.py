@@ -30,7 +30,7 @@ except ImportError:  # The generator still works without optional image optimiza
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "课题组成员"
-WORKBOOK = SOURCE_DIR / "照片以及个人简介收集_已排序.xlsx"
+WORKBOOK = SOURCE_DIR / "照片以及个人简介收集.xlsx"
 MEMBERS_PAGE = ROOT / "members.html"
 ASSET_DIR = ROOT / "assets" / "members"
 START_MARKER = "<!-- MEMBERS:START -->"
@@ -128,8 +128,8 @@ def prepare_photo(source_photo: Path) -> Path:
             image = background
         else:
             image = image.convert("RGB")
-        image.thumbnail((900, 900), Image.Resampling.LANCZOS)
-        image.save(destination, "WEBP", quality=82, method=6)
+        image.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+        image.save(destination, "WEBP", quality=95, method=6)
     return destination
 
 
@@ -140,14 +140,15 @@ def render_member(member: Member) -> str:
     details = []
     if member.role:
         details.append(f"<p>{html.escape(member.role)}</p>")
-    details.append(f"<p>{html.escape(member.bio)}</p>")
+    bio = "\n".join(line.rstrip() for line in member.bio.splitlines())
+    details.append(f"<p>{html.escape(bio)}</p>")
     if member.email:
         email = html.escape(member.email)
         details.append(f'<a href="mailto:{email}">{email}</a>')
     image_url = "assets/members/" + quote(destination.name)
     return (
         '            <article class="member-card">'
-        f'<img src="{image_url}" alt="{html.escape(member.name)}">'
+        f'<img src="{image_url}" alt="{html.escape(member.name)}" loading="lazy" decoding="async">'
         f"<div><h3>{html.escape(member.name)}</h3>{''.join(details)}</div>"
         "</article>"
     )

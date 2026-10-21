@@ -28,6 +28,7 @@ jobs:
           cp index.html pi.html pi-en.html platforms.html publications.html members.html contact.html styles.css script.js .nojekyll _site/
           cp assets/pi-qian-binzhi.webp assets/platform-instruments.webp _site/assets/
           cp -R assets/members _site/assets/members
+          cp -R assets/instruments _site/assets/instruments
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
